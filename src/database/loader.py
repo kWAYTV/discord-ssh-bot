@@ -1,0 +1,18 @@
+import traceback, logging
+from src.database.controllers.hosts_controller import HostsController
+from src.database.controllers.sessions_controller import SessionsController
+
+logger = logging.getLogger(__name__)
+
+class DatabaseLoader:
+    def __init__(self) -> None:
+        self.hosts_controller = HostsController()
+        self.sessions_controller = SessionsController()
+
+    async def setup(self) -> None:
+        try:
+            await self.hosts_controller.create_table()
+            await self.sessions_controller.create_table()
+        except Exception as e:
+            logger.error(f"Error setting up database: {e}")
+            traceback.print_exc()

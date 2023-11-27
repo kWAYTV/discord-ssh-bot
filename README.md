@@ -1,2 +1,2 @@
-# discord-ssh-bot
- A fancy discord bot that acts as a ssh client.
+# Discord SSH Bot.
+⚠️ This project is under development.
