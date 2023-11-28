@@ -24,7 +24,7 @@ class SSHController:
             
             return True
         except Exception as e:
-            logger.error(f"Error connecting to host: {e}")
+            logger.critical(f"Error connecting to host: {e}")
             return False
     
     async def execute(self, command: str) -> str or None:
@@ -34,7 +34,7 @@ class SSHController:
             stdin, stdout, stderr = self.client.exec_command(command)
             return stdout.read().decode('utf-8') + stderr.read().decode('utf-8')
         except Exception as e:
-            logger.error(f"Error executing command: {e}")
+            logger.critical(f"Error executing command: {e}")
             return None
     
     async def close(self) -> bool:

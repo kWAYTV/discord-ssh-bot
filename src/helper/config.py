@@ -1,4 +1,5 @@
 import discord, yaml
+from loguru import logger
 from yaml import SafeLoader
 
 class Config():
@@ -26,3 +27,16 @@ class Config():
 
         # Logs
         self.log_file = self.config["log_file"]
+
+    # Function to change a value in config.yaml
+    def change_value(self, key, value):
+        try:
+            with open("config.yaml", "r") as file:
+                config = yaml.load(file, Loader=SafeLoader)
+            config[key] = value
+            with open("config.yaml", "w") as file:
+                yaml.dump(config, file)
+            return logger.info(f"Changed value in config.yaml: {key} -> {value}, the file was rewritten.")
+        except Exception as e:
+            logger.critical(f"Failed to change value in config.yaml: {e}")
+            return False

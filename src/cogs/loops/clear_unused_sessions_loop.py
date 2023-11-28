@@ -9,7 +9,7 @@ class SessionsLoop(commands.Cog):
         self.sessions_controller = SessionsController()
         self.clear_sessions.start()
 
-    @tasks.loop(seconds=30)
+    @tasks.loop(minutes=1)
     async def clear_sessions(self):
         await self.sessions_controller.clear_unused_sessions()
 

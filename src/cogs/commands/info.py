@@ -32,7 +32,7 @@ class Info(commands.Cog):
 
             await interaction.response.send_message(embed=embed, ephemeral=hidden)
         except Exception as e:
-            logger.error(f"Failed to respond to info command: {e}")
+            logger.critical(f"Failed to respond to info command: {e}")
             await interaction.response.send_message("There was an error trying to execute that command!", ephemeral=hidden)
 
     @info_command.error

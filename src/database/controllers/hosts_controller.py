@@ -33,7 +33,7 @@ class HostsController:
                 await db.commit()
                 return True
             except aiosqlite.Error as e:
-                logger.error(f"Error adding host: {e}")
+                logger.critical(f"Error adding host: {e}")
                 return False
 
     async def remove_host(self, ip: str, port: str) -> bool:
@@ -43,7 +43,7 @@ class HostsController:
                 await db.commit()
                 return True
             except aiosqlite.Error as e:
-                logger.error(f"Error removing host: {e}")
+                logger.critical(f"Error removing host: {e}")
                 return False
 
     async def edit_host(self, old_schema: HostSchema, new_schema: HostSchema) -> bool:
@@ -53,7 +53,7 @@ class HostsController:
                 await db.commit()
                 return True
             except aiosqlite.Error as e:
-                logger.error(f"Error editing host: {e}")
+                logger.critical(f"Error editing host: {e}")
                 return False
 
     async def host_exists(self, ip: str, port: str) -> bool:
@@ -63,7 +63,7 @@ class HostsController:
                 host = await cursor.fetchone()
                 return host is not None
             except aiosqlite.Error as e:
-                logger.error(f"Error checking if host exists: {e}")
+                logger.critical(f"Error checking if host exists: {e}")
                 return False
 
     async def is_owner_of_host(self, owner_id: int, ip: str, port: str) -> bool:
@@ -73,7 +73,7 @@ class HostsController:
                 host = await cursor.fetchone()
                 return host is not None
             except aiosqlite.Error as e:
-                logger.error(f"Error checking if host exists: {e}")
+                logger.critical(f"Error checking if host exists: {e}")
                 return False
 
     async def get_host(self, owner_id: int, ip: str, port: str) -> HostSchema or None:
@@ -83,7 +83,7 @@ class HostsController:
                 host = await cursor.fetchone()
                 return HostSchema(*host) if host else None
             except aiosqlite.Error as e:
-                logger.error(f"Error getting host: {e}")
+                logger.critical(f"Error getting host: {e}")
                 return None
 
     async def get_hosts_by_owner(self, owner_id: int) -> list[HostSchema] or list[None]:
@@ -93,5 +93,5 @@ class HostsController:
                 hosts = await cursor.fetchall()
                 return [HostSchema(*host) for host in hosts] if hosts else []
             except aiosqlite.Error as e:
-                logger.error(f"Error getting hosts: {e}")
+                logger.critical(f"Error getting hosts: {e}")
                 return []

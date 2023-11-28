@@ -1,4 +1,5 @@
-import discord, traceback
+import discord
+from loguru import logger
 from src.views.host_client.host_panel import HostPanelView
 from src.database.controllers.hosts_controller import HostsController
 
@@ -24,8 +25,8 @@ class ListHostsDropdown(discord.ui.Select):
             
             return await interaction.response.send_message(f"Welcome to your host panel!", embed=embed, view=HostPanelView(selected_host), ephemeral=True)
         except Exception as e:
+            logger.critical(f"Failed to respond to list hosts dropdown: {e}")
             await interaction.response.send_message(f"An error occurred listing hosts: {e}", ephemeral=True)
-            traceback.print_exc()
 
 class ListHostsDropdownView(discord.ui.View):
     def __init__(self, user_id):

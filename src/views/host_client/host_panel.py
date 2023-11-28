@@ -42,7 +42,7 @@ class HostPanelView(discord.ui.View):
         except Exception as e:
             await channel.delete()
             await self.sessions_controller.remove_session(session_id)
-            logger.error(f"Error connecting to host: {e}")
+            logger.critical(f"Error connecting to host: {e}")
             return await interaction.response.send_message(f"Error connecting to host: {e}", ephemeral=True)
 
         # Switch to the new channel

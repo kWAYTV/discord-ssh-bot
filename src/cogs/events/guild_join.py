@@ -13,7 +13,7 @@ class GuildJoin(commands.Cog):
             # Sync the commands
             await self.bot.tree.sync()
         except Exception as e:
-            logger.error(f"❌ Failed to sync slash commands: {e}")
+            logger.critical(f"❌ Failed to sync slash commands: {e}")
             return
 
         # Send a DM to the guild owner

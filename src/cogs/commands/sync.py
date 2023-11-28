@@ -20,9 +20,10 @@ class SyncCommand(commands.Cog):
         try:
             if guild is None:
                 await self.bot.tree.sync()
+                success_message = "✅ Successfully synced slash commands globally!"
             else:
                 await self.bot.tree.sync(guild=guild)
-            success_message = "✅ Successfully synced slash commands!"
+                success_message = f"✅ Successfully synced slash commands in {guild.name}!"
             msg = await ctx.send(success_message)
             
             logger.info("Slash commands were synced by an admin.")
@@ -33,7 +34,7 @@ class SyncCommand(commands.Cog):
         except Exception as e:
             error_message = f"❌ Failed to sync slash commands: {e}"
             await ctx.send(error_message, delete_after=10)  # Optionally delete the error message after a delay
-            logger.error(error_message)
+            logger.critical(error_message)
 
 async def setup(bot: commands.Bot):
     await bot.add_cog(SyncCommand(bot))

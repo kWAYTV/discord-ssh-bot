@@ -36,7 +36,7 @@ class SessionsController:
                 # return the id of the session
                 return await self.get_session_id(host_schema.owner, host_schema.ip, host_schema.port)
             except aiosqlite.Error as e:
-                logger.error(f"Error adding session: {e}")
+                logger.critical(f"Error adding session: {e}")
                 return False
 
     async def remove_session(self, id: int):
@@ -46,7 +46,7 @@ class SessionsController:
                 await db.commit()
                 return True
             except aiosqlite.Error as e:
-                logger.error(f"Error removing session: {e}")
+                logger.critical(f"Error removing session: {e}")
                 return False
 
     async def update_session_last_used(self, id: int):
@@ -56,7 +56,7 @@ class SessionsController:
                 await db.commit()
                 return True
             except aiosqlite.Error as e:
-                logger.error(f"Error updating session last used: {e}")
+                logger.critical(f"Error updating session last used: {e}")
                 return False
 
     async def clear_unused_sessions(self):
@@ -66,7 +66,7 @@ class SessionsController:
                 await db.commit()
                 return True
             except aiosqlite.Error as e:
-                logger.error(f"Error clearing unused sessions: {e}")
+                logger.critical(f"Error clearing unused sessions: {e}")
                 return False
 
     async def get_session(self, id: int):
@@ -78,7 +78,7 @@ class SessionsController:
                         return None
                     return HostSchema(row[1], row[2], row[3], row[4], row[5], row[6])
             except aiosqlite.Error as e:
-                logger.error(f"Error getting session: {e}")
+                logger.critical(f"Error getting session: {e}")
                 return None
 
     async def get_sessions(self, discord_channel_id: int):
@@ -90,7 +90,7 @@ class SessionsController:
                         return None
                     return [HostSchema(row[1], row[2], row[3], row[4], row[5], row[6]) for row in rows]
             except aiosqlite.Error as e:
-                logger.error(f"Error getting sessions: {e}")
+                logger.critical(f"Error getting sessions: {e}")
                 return None
 
     async def session_exists(self, owner_id: int, ip: str, port: str):
@@ -102,7 +102,7 @@ class SessionsController:
                     return False
                 return HostSchema(*session)
             except aiosqlite.Error as e:
-                logger.error(f"Error checking if session exists: {e}")
+                logger.critical(f"Error checking if session exists: {e}")
                 return False
 
     async def is_owner_of_session(self, owner_id: int, id: int):
@@ -112,7 +112,7 @@ class SessionsController:
                 session = await cursor.fetchone()
                 return session is not None
             except aiosqlite.Error as e:
-                logger.error(f"Error checking if session exists: {e}")
+                logger.critical(f"Error checking if session exists: {e}")
                 return False
 
     async def get_owner_of_session(self, id: int):
@@ -122,7 +122,7 @@ class SessionsController:
                 session = await cursor.fetchone()
                 return session[1]
             except aiosqlite.Error as e:
-                logger.error(f"Error checking if session exists: {e}")
+                logger.critical(f"Error checking if session exists: {e}")
                 return None
 
     async def get_channel_of_session(self, id: int):
@@ -132,7 +132,7 @@ class SessionsController:
                 session = await cursor.fetchone()
                 return session[7]
             except aiosqlite.Error as e:
-                logger.error(f"Error checking if session exists: {e}")
+                logger.critical(f"Error checking if session exists: {e}")
                 return None
 
     async def get_session_id(self, owner_id: int, ip: str, port: str):
@@ -142,7 +142,7 @@ class SessionsController:
                 session = await cursor.fetchone()
                 return session[0]
             except aiosqlite.Error as e:
-                logger.error(f"Error checking if session exists: {e}")
+                logger.critical(f"Error checking if session exists: {e}")
                 return None
 
     async def get_session_by_channel(self, discord_channel_id: int) -> SSHController or None:
@@ -152,7 +152,7 @@ class SessionsController:
                 session = await cursor.fetchone()
                 return SSHController(*session) if session else None
             except aiosqlite.Error as e:
-                logger.error(f"Error getting session: {e}")
+                logger.critical(f"Error getting session: {e}")
                 return None
 
     async def kill_sessions(self, owner_id: int):
@@ -167,5 +167,5 @@ class SessionsController:
                 await db.commit()
                 return [session[0] for session in sessions]
             except aiosqlite.Error as e:
-                logger.error(f"Error removing sessions: {e}")
+                logger.critical(f"Error removing sessions: {e}")
                 return False

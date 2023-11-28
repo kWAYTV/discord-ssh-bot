@@ -33,7 +33,7 @@ class Kill(commands.Cog):
             logger.info(f"Successfully killed all sessions for user {interaction.user.name} ({interaction.user.id}).")
             return await interaction.followup.send(f"Successfully killed all sessions for user {interaction.user.mention} (`{interaction.user.id}`).", ephemeral=True)
         except Exception as e:
-            logger.error(f"Failed to respond to kill command: {e}")
+            logger.critical(f"Failed to respond to kill command: {e}")
             return await interaction.followup.send("There was an error trying to execute that command!", ephemeral=True)
 
     @kill_command.error

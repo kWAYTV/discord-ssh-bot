@@ -13,5 +13,5 @@ class DatabaseLoader:
             await self.hosts_controller.create_table()
             await self.sessions_controller.create_table()
         except Exception as e:
-            logger.error(f"Error setting up database: {e}")
+            logger.critical(f"Error setting up database: {e}")
             traceback.print_exc()

@@ -28,7 +28,7 @@ class Ping(commands.Cog):
 
             await interaction.response.send_message(embed=embed, ephemeral=True)
         except Exception as e:
-            logger.error(f"Failed to respond to ping command: {e}")
+            logger.critical(f"Failed to respond to ping command: {e}")
             await interaction.response.send_message("There was an error trying to execute that command!", ephemeral=True)
 
     @ping_command.error

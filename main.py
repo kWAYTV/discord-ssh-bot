@@ -7,7 +7,7 @@ from src.database.loader import DatabaseLoader
 from src.manager.file_manager import FileManager
 
 # Set logging system handler
-logger.add(Config().log_file, encoding="utf-8")
+logger.add(Config().log_file, mode="w+")
 
 # Define the bot & load the commands, events and loops
 class Bot(commands.Bot):
@@ -50,7 +50,7 @@ class Bot(commands.Bot):
             # Done!
             logger.info(f"Setup completed!")
         except Exception as e:
-            logger.error(f"Error setting up bot: {e}")
+            logger.critical(f"Error setting up bot: {e}")
             traceback.print_exc()
             exit()
 
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         bot = Bot()
         bot.run(Config().bot_token)
     except KeyboardInterrupt:
-        logger.info("Goodbye!")
+        logger.critical("Goodbye!")
         exit()
     except Exception as e:
         logger.critical(f"Error running bot: {e}")

@@ -13,9 +13,8 @@ class Panel(commands.Cog):
 
     @app_commands.command(name="panel", description="Send the bot interaction panel.")
     @app_commands.checks.has_permissions(administrator=True)
-    async def panel_command(self, interaction: discord.Interaction, hidden: bool = False):
+    async def panel_command(self, interaction: discord.Interaction, channel: discord.TextChannel = None, hidden: bool = False):
         try:
-            await interaction.response.defer()
 
             embed = discord.Embed(title="Bot Panel", description="Use the menu below to interact with the bot.")
             embed.set_author(name=self.config.app_name, icon_url=self.config.app_logo, url=self.config.app_url)
@@ -24,11 +23,14 @@ class Panel(commands.Cog):
             embed.set_image(url=self.config.rainbow_line_gif)
             embed.timestamp = datetime.utcnow()
 
-            await interaction.followup.send(embed=embed, view=InteractionPanelButtonsView(), ephemeral=hidden)
+            if channel is None:
+                channel = interaction.channel
+            await channel.send(embed=embed, view=InteractionPanelButtonsView())
+            await interaction.response.send_message(f"Panel sent in {channel.mention}!", ephemeral=True)
 
         except Exception as e:
             await interaction.followup.send(f"An error occurred with panel command: {e}", ephemeral=True)
-            logger.error(f"An error occurred with panel command: {e}")
+            logger.critical(f"An error occurred with panel command: {e}")
             traceback.print_exc()
 
     @panel_command.error
