@@ -23,13 +23,3 @@ class Config():
         self.logs_channel = int(self.config["logs_channel"])
         self.chat_category = int(self.config["chat_category"])
         self.dev_guild_id = discord.Object(int(self.config["dev_guild_id"]))
-
-        # Emoji IDs
-        self.green_tick_emoji_id = self.config["green_tick_emoji_id"]
-        self.red_cross_emoji_id = self.config["red_cross_emoji_id"]
-
-        # Logger
-        self.log_level = self.config["log_level"]
-        self.log_to_file = self.config["log_to_file"]
-        self.log_file_name = self.config["log_file_name"]
-        self.log_file_mode = self.config["log_file_mode"]

@@ -4,21 +4,17 @@ from src.helper.config import Config
 
 defaultConfig = """
 ## App
+app_logo: 
 app_url: 
 app_name: 
-app_version: "
+app_version: ""
 
 ## Bot
 bot_prefix: 
 bot_token: 
 logs_channel: 
+chat_category: 
 dev_guild_id: 
-
-## kwslogger
-log_level: 
-log_to_file: 
-log_file_name: 
-log_file_mode: 
 """
 
 class FileManager:
