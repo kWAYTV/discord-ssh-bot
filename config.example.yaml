@@ -1,0 +1,12 @@
+app_logo: https://icons.iconarchive.com/icons/xenatt/the-cirlce/256/App-Terminal-icon.png
+app_url: https://example.com
+app_name: SSH Bot
+app_version: "0.2.5"
+
+bot_prefix: .
+bot_token:
+logs_channel:
+chat_category:
+dev_guild_id:
+
+log_file: ssh_bot.log
