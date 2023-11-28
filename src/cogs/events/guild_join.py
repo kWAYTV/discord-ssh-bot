@@ -1,7 +1,5 @@
-import logging
+from loguru import logger
 from discord.ext import commands
-
-logger = logging.getLogger(__name__)
 
 class GuildJoin(commands.Cog):
 

@@ -1,7 +1,6 @@
-import os, logging
+import os
+from loguru import logger
 from src.helper.config import Config
-
-logger = logging.getLogger(__name__)
 
 defaultConfig = """
 ## App

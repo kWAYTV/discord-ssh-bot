@@ -1,4 +1,6 @@
 discord.py
-kwslogger
+loguru
 PyYAML
 aiosqlite
+pyfiglet
+pystyle

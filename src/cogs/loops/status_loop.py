@@ -1,8 +1,7 @@
-import discord, logging
+import discord
+from loguru import logger
 from discord.ext import commands, tasks
 from src.helper.status import BotStatus as Status
-
-logger = logging.getLogger(__name__)
 
 class StatusLoop(commands.Cog):
 

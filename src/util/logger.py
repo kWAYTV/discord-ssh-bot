@@ -1,12 +1,10 @@
-import discord, logging
+import discord
+from loguru import logger
 from datetime import datetime
 from discord.ext import commands
 from src.helper.config import Config
 
-logger = logging.getLogger(__name__)
-
 class Logger:
-
     def __init__(self, bot: commands.Bot = None):
         self.bot = bot
         self.config = Config()

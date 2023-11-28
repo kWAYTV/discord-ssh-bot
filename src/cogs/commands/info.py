@@ -1,10 +1,9 @@
-import discord, logging
+import discord
+from loguru import logger
 from datetime import datetime
 from discord.ext import commands
 from discord import app_commands
 from src.helper.config import Config
-
-logger = logging.getLogger(__name__)
 
 class Info(commands.Cog):
     def __init__(self, bot: commands.Bot):

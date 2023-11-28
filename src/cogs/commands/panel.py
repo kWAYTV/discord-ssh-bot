@@ -1,11 +1,10 @@
-import discord, traceback, logging
+import discord, traceback
+from loguru import logger
 from datetime import datetime
 from discord.ext import commands
 from discord import app_commands
 from src.helper.config import Config
 from src.views.interaction_panel.interaction_panel_view import InteractionPanelButtonsView
-
-logger = logging.getLogger(__name__)
 
 class Panel(commands.Cog):
     def __init__(self, bot: commands.Bot):

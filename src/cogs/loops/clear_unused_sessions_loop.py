@@ -1,8 +1,6 @@
-import logging
+from loguru import logger
 from discord.ext import commands, tasks
 from src.database.controllers.sessions_controller import SessionsController
-
-logger = logging.getLogger(__name__)
 
 class SessionsLoop(commands.Cog):
 

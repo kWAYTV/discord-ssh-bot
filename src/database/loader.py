@@ -1,8 +1,7 @@
-import traceback, logging
+import traceback
+from loguru import logger
 from src.database.controllers.hosts_controller import HostsController
 from src.database.controllers.sessions_controller import SessionsController
-
-logger = logging.getLogger(__name__)
 
 class DatabaseLoader:
     def __init__(self) -> None:

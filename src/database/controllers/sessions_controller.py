@@ -1,7 +1,6 @@
-import aiosqlite, logging
+import aiosqlite
+from loguru import logger
 from src.database.schema.host_schema import HostSchema
-
-logger = logging.getLogger(__name__)
 
 class SessionsController:
     def __init__(self):

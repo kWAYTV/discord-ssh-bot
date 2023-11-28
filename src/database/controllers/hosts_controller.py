@@ -1,8 +1,7 @@
-import aiosqlite, logging
+import aiosqlite
+from loguru import logger
 from src.helper.config import Config
 from src.database.schema.host_schema import HostSchema
-
-logger = logging.getLogger(__name__)
 
 class HostsController:
     def __init__(self):

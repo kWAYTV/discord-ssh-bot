@@ -1,9 +1,8 @@
-import discord, logging
+import discord
+from loguru import logger
 from datetime import datetime
 from src.helper.config import Config
 from src.database.controllers.hosts_controller import HostsController
-
-logger = logging.getLogger(__name__)
 
 class RemoveHostModal(discord.ui.Modal, title='Remove Host'):
     def __init__(self):
