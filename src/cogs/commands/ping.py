@@ -34,7 +34,7 @@ class Ping(commands.Cog):
     @ping_command.error
     async def ping_command_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError):
         if isinstance(error, app_commands.errors.MissingPermissions):
-            await interaction.response.send_message(f"{self.config.red_cross_emoji_id} You don't have the necessary permissions to use this command.",ephemeral=True)
+            await interaction.response.send_message(f"You don't have the necessary permissions to use this command.",ephemeral=True)
         else:
             await interaction.response.send_message(f"An error occurred: {error}", ephemeral=True)
 

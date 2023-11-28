@@ -1,6 +1,8 @@
 import aiosqlite
 from loguru import logger
+from typing import Optional
 from src.database.schema.host_schema import HostSchema
+from src.controller.ssh_controller import SSHController
 
 class SessionsController:
     def __init__(self):
@@ -143,12 +145,27 @@ class SessionsController:
                 logger.error(f"Error checking if session exists: {e}")
                 return None
 
-    async def get_session_by_channel(self, discord_channel_id: int):
+    async def get_session_by_channel(self, discord_channel_id: int) -> SSHController or None:
         async with aiosqlite.connect(self.db_path) as db:
             try:
                 cursor = await db.execute("SELECT * FROM ssh_sessions WHERE discord_channel_id = ?", (discord_channel_id,))
                 session = await cursor.fetchone()
-                return HostSchema(*session) if session else None
+                return SSHController(*session) if session else None
             except aiosqlite.Error as e:
                 logger.error(f"Error getting session: {e}")
                 return None
+
+    async def kill_sessions(self, owner_id: int):
+        async with aiosqlite.connect(self.db_path) as db:
+            try:
+                # Return a list of channel ids to close and remove from the database
+                cursor = await db.execute("SELECT discord_channel_id FROM ssh_sessions WHERE owner = ?", (owner_id,))
+                sessions = await cursor.fetchall()
+                if sessions is None:
+                    return None
+                await db.execute("DELETE FROM ssh_sessions WHERE owner = ?", (owner_id,))
+                await db.commit()
+                return [session[0] for session in sessions]
+            except aiosqlite.Error as e:
+                logger.error(f"Error removing sessions: {e}")
+                return False

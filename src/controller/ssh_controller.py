@@ -1,7 +1,8 @@
 import paramiko
+from loguru import logger
 
 class SSHController:
-    def __init__(self, database_id: int, owner: int, host: str, port: int, username: str, password: str, key: str, discord_channel_id: int):
+    def __init__(self, database_id: int, owner: int, host: str, port: int, username: str, password: str, key: str, discord_channel_id: int, last_used: str = None):
         self.id = database_id
         self.owner = owner
         self.host = host
@@ -10,8 +11,8 @@ class SSHController:
         self.password = password
         self.key = key
         self.discord_channel_id = discord_channel_id
+        self.last_used = last_used
         self.client = None
-        self.connect()
 
     async def connect(self) -> bool:
         try:
@@ -23,7 +24,7 @@ class SSHController:
             
             return True
         except Exception as e:
-            print(f"Error connecting to host: {e}")
+            logger.error(f"Error connecting to host: {e}")
             return False
     
     async def execute(self, command: str) -> str or None:
@@ -33,7 +34,7 @@ class SSHController:
             stdin, stdout, stderr = self.client.exec_command(command)
             return stdout.read().decode('utf-8') + stderr.read().decode('utf-8')
         except Exception as e:
-            print(f"Error executing command: {e}")
+            logger.error(f"Error executing command: {e}")
             return None
     
     async def close(self) -> bool:

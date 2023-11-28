@@ -1,4 +1,5 @@
 import discord
+from loguru import logger
 from src.helper.config import Config
 from src.database.schema.host_schema import HostSchema
 from src.controller.ssh_controller import SSHController
@@ -21,7 +22,7 @@ class HostPanelView(discord.ui.View):
         # Check if the user already has a session for this host, if it does, it returns the host object
         session_exists = await self.sessions_controller.session_exists(self.host.owner, self.host.ip, self.host.port)
         if session_exists:
-            return await interaction.response.send_message(f"You already have a session open for this host! <#{session_exists.discord_channel_id}>", ephemeral=True)
+            return await interaction.response.send_message(f"You already have a session open for this host or use the /kill command to kill all your current sessions! <#{session_exists.discord_channel_id}>", ephemeral=True)
         
         # Create a new text channel for the host
         category = guild.get_channel(self.config.chat_category)
@@ -36,6 +37,13 @@ class HostPanelView(discord.ui.View):
 
         # Connect to the ssh host
         controller = SSHController(session_id, self.host.owner, self.host.ip, self.host.port, self.host.username, self.host.password, self.host.key, channel.id)
+        try:
+            await controller.connect()
+        except Exception as e:
+            await channel.delete()
+            await self.sessions_controller.remove_session(session_id)
+            logger.error(f"Error connecting to host: {e}")
+            return await interaction.response.send_message(f"Error connecting to host: {e}", ephemeral=True)
 
         # Switch to the new channel
         await interaction.response.send_message(f"Switching to: {channel.mention}", ephemeral=True)
