@@ -23,3 +23,6 @@ class Config():
         self.logs_channel = int(self.config["logs_channel"])
         self.chat_category = int(self.config["chat_category"])
         self.dev_guild_id = discord.Object(int(self.config["dev_guild_id"]))
+
+        # Logs
+        self.log_file = self.config["log_file"]

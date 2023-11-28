@@ -15,6 +15,9 @@ bot_token:
 logs_channel: 
 chat_category: 
 dev_guild_id: 
+
+## Logs
+log_file: ssh_bot.log
 """
 
 class FileManager:

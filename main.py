@@ -7,7 +7,7 @@ from src.database.loader import DatabaseLoader
 from src.manager.file_manager import FileManager
 
 # Set logging system handler
-logger.add("ssh_bot.log", encoding="utf-8")
+logger.add(Config().log_file, encoding="utf-8")
 
 # Define the bot & load the commands, events and loops
 class Bot(commands.Bot):
